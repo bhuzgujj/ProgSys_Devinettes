@@ -22,21 +22,30 @@ def main():
     while True:
         deviner = 0
         print(f"Essai {essai}: {deviner}")
+        if checkeur(deviner, nombre_devinable) or essai == 10:
+            break
         essai += 1
-        if deviner == nombre_devinable: break
     pass
 
 
-def checkeur(str):
+def checkeur(string, nb):
+    """
+    Fonction pour validé le nombre
+    :param string: nombre a validé
+    :param nb: nombre a comparé
+    :return: vrai = nombre valide
+    """
     erreur_msg = "ERREUR: Entrez un nombre entier svp"
     try:
-        nombre = int(str)
-        if type(nombre) is type(1nt):
-            return
+        nombre = int(string)
+        if isinstance(nombre, int):
+            if nombre == nb:
+                return True
         else:
             print(erreur_msg)
     except Exception:
         print(erreur_msg)
+    return False
 
 
 if __name__ == '__main__':
