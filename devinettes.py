@@ -9,6 +9,7 @@ import random
 
 MINIMUM = 1
 MAXIMUM = 100
+NOMBRE_ESSAI_MAX = 10
 
 
 def main():
@@ -18,10 +19,14 @@ def main():
     print("Bonjour, je m'appelle Emilex 2020")
     nombre_devinable = random.randrange(MINIMUM, MAXIMUM + 1)
     print(f"J'ai choisi un nombre entier entre {MINIMUM} et {MAXIMUM}")
-    print("Pouvez-vous le deviner ?")
+    print('Pouvez-vous le deviner ?')
+    reponse = 'OUI'
     while True:
-        loop_principale(nombre_devinable)
-        print('Voulez-vous rejouer?')
+        if reponse == 'OUI' or reponse == 'O':
+            loop_principale(nombre_devinable)
+            print('Voulez-vous rejouer?')
+        else:
+            print('Veuillez entrer OUI ou NON.')
         reponse = input().upper()
         if reponse == 'NON' or reponse == 'N':
             break
@@ -37,20 +42,24 @@ def loop_principale(nombre_devinable):
     essai = 1
     nombre_essayer = []
     while True:
+        print(f'Essai {essai}: ', end=' ')
         deviner = input()
-        print(f"Essai {essai}: {deviner}")
         sortie = cheat_code(deviner, essai, nombre_essayer)
         if not sortie and validateur_format(deviner):
             nombre_essayer.append(deviner)
             essai += 1
             if int(deviner) > int(nombre_devinable):
-                print('PLUS PETIT')
+                print('Votre nombre est trop grand...')
             elif int(deviner) < int(nombre_devinable):
-                print('PLUS GRAND')
+                print('Votre nombre est trop petit...')
             else:
-                print('BRAVO')
+                print('Bravo, vous avez deviné le nombre')
                 sortie = True
         if sortie:
+            break
+        if essai >= 10:
+            print(f'Désolé, vous avez échoué après {NOMBRE_ESSAI_MAX} tentatives')
+            print(f'Le nombre choisi était {nombre_devinable}')
             break
     return
 
@@ -74,7 +83,7 @@ def validateur_format(string):
     :param string: nombre a validé
     :return: vrai = nombre valide
     """
-    erreur_msg = "ERREUR: Entrez un nombre entier svp"
+    erreur_msg = 'ERREUR: Entrez un nombre entier svp'
     try:
         nombre = int(string)
         if isinstance(nombre, int):
