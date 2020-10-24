@@ -7,6 +7,7 @@ Auteur: Émile Boucher
 
 import random
 
+# Constante
 MINIMUM = 1
 MAXIMUM = 100
 NOMBRE_ESSAI_MAX = 10
@@ -21,12 +22,13 @@ def main():
     print(f"J'ai choisi un nombre entier entre {MINIMUM} et {MAXIMUM}")
     print('Pouvez-vous le deviner ?')
     reponse = 'OUI'
-    nombre_partie = 1
+    nombre_partie = 0
     nombre_essais = 0
     while True:
         if reponse == 'OUI' or reponse == 'O':
             print('')
-            nombre_essais = nombre_essais + loop_principale(nombre_devinable)
+            nombre_essais += loop_principale(nombre_devinable)
+            nombre_partie += 1
             print('Voulez-vous rejouer [O/N]?')
         else:
             print('Veuillez entrer OUI ou NON. ("O" ou "N")')
@@ -34,7 +36,7 @@ def main():
         if reponse == 'NON' or reponse == 'N':
             print(f'Nombre de parties jouées: {nombre_partie}')
             print(f"Nombre d'essais: {nombre_essais}")
-            print(f"Moyenne d'essais par partie: {nombre_essais/nombre_partie}")
+            print(f"Moyenne d'essais par partie: {nombre_essais / nombre_partie}")
             print('Au revoir!')
             break
     pass
@@ -74,6 +76,7 @@ def loop_principale(nombre_devinable):
 def cheat_code(code_entrer, nb_essais, nb_essayer, devinable):
     """
     Fonction qui détecte et gère les "Cheat code"
+    :param devinable: Le nombre a deviné
     :param nb_essayer: Les nombres essayer
     :param nb_essais: Nombre d'essais fait
     :param code_entrer: Code entrer
